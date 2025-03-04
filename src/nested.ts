@@ -233,9 +233,16 @@ export function duplicateQuestionInArray(
     targetId: number,
     newId: number,
 ): Question[] {
-    return questions.flatMap((question) =>
-        question.id === targetId ?
-            [question, duplicateQuestion(newId, question)]
-        :   [question],
-    );
+    const index = questions.findIndex((q) => q.id === targetId);
+    return index === -1 ? questions : (
+            [
+                ...questions.slice(0, index + 1),
+                {
+                    ...questions[index],
+                    id: newId,
+                    name: `Copy of ${questions[index].name}`,
+                },
+                ...questions.slice(index + 1),
+            ]
+        );
 }
