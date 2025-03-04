@@ -149,14 +149,12 @@ export function mergeQuestion(
     contentQuestion: Question,
     { points }: { points: number },
 ): Question {
-    return {
-        id,
-        name,
-        body: contentQuestion.body,
-        type: contentQuestion.type,
-        options: contentQuestion.options,
-        expected: contentQuestion.expected,
-        points,
+    const newQuestion: Question = {
+        ...contentQuestion,
+        id: id,
+        name: name,
+        points: points,
         published: false,
     };
+    return newQuestion;
 }
