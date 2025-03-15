@@ -76,14 +76,13 @@ export function toShortForm(question: Question): string {
  * Check the unit tests for more examples of what this looks like!
  */
 export function toMarkdown(question: Question): string {
-    let markdown: string = `# ${question.name}\n${question.body}`;
+    var answer = `# ${question.name}\n${question.body}`;
+
     if (question.type === "multiple_choice_question") {
-        let opt: string = question.options
-            .map((option) => `- ${option}`)
-            .join("\n");
-        markdown += `\n${opt}`;
+        answer +=
+            "\n" + question.options.map((option) => `- ${option}`).join("\n");
     }
-    return markdown;
+    return answer;
 }
 
 /**
@@ -91,21 +90,33 @@ export function toMarkdown(question: Question): string {
  * `newName`.
  */
 export function renameQuestion(question: Question, newName: string): Question {
-    const newQuestion: Question = { ...question, name: newName };
-    return newQuestion;
+    return {
+        id: question.id,
+        name: newName,
+        body: question.body,
+        type: question.type,
+        options: question.options,
+        expected: question.expected,
+        points: question.points,
+        published: question.published,
+    };
 }
-
 /**
  * Return a new version of the given question, except the `published` field
  * should be inverted. If the question was not published, now it should be
  * published; if it was published, now it should be not published.
  */
 export function publishQuestion(question: Question): Question {
-    const newQuestion: Question = {
-        ...question,
+    return {
+        id: question.id,
+        name: question.name,
+        body: question.body,
+        type: question.type,
+        options: question.options,
+        expected: question.expected,
+        points: question.points,
         published: !question.published,
     };
-    return newQuestion;
 }
 
 /**
@@ -115,13 +126,16 @@ export function publishQuestion(question: Question): Question {
  * The `published` field should be reset to false.
  */
 export function duplicateQuestion(id: number, oldQuestion: Question): Question {
-    const newQuestion: Question = {
-        ...oldQuestion,
+    return {
         id: id,
         name: `Copy of ${oldQuestion.name}`,
+        body: oldQuestion.body,
+        type: oldQuestion.type,
+        options: oldQuestion.options,
+        expected: oldQuestion.expected,
+        points: oldQuestion.points,
         published: false,
     };
-    return newQuestion;
 }
 
 /**
@@ -132,11 +146,16 @@ export function duplicateQuestion(id: number, oldQuestion: Question): Question {
  * Check out the subsection about "Nested Fields" for more information.
  */
 export function addOption(question: Question, newOption: string): Question {
-    const newQuestion: Question = {
-        ...question,
+    return {
+        id: question.id,
+        name: question.name,
+        body: question.body,
+        type: question.type,
         options: [...question.options, newOption],
+        expected: question.expected,
+        points: question.points,
+        published: question.published,
     };
-    return newQuestion;
 }
 
 /**
@@ -153,12 +172,14 @@ export function mergeQuestion(
     contentQuestion: Question,
     { points }: { points: number },
 ): Question {
-    const newQuestion: Question = {
-        ...contentQuestion,
+    return {
         id: id,
         name: name,
+        body: contentQuestion.body,
+        type: contentQuestion.type,
+        options: [...contentQuestion.options],
+        expected: contentQuestion.expected,
         points: points,
         published: false,
     };
-    return newQuestion;
 }
