@@ -5,7 +5,7 @@ import { Button } from "react-bootstrap";
  * Holidays Chosen:
  * test
  * New Year’s Day (January 1)
- *St. Patrick’s Day (March 17)
+ * Valentines Day (Febuary 14)
  *Independence Day (July 4)
  *Halloween (October 31)
  * Christmas (December 25)
@@ -15,7 +15,7 @@ export function CycleHoliday(): React.JSX.Element {
 
     let chronologicalYear: string[] = [
         "New Year's Day",
-        "St. Patrick's Day",
+        "Valentines Day",
         "Independence Day",
         "Halloween",
         "Christmas"
@@ -26,7 +26,7 @@ export function CycleHoliday(): React.JSX.Element {
         "Halloween",
         "Independence Day",
         "New Year's Day",
-        "St. Patrick's Day"
+        "Valentines Day"
     ];
 
     //alphabettically
@@ -52,7 +52,7 @@ export function CycleHoliday(): React.JSX.Element {
     //Record with Emojis
     const emojiLookup = new Map<string, string>([
         ["New Year's Day", "🎉"],
-        ["St. Patrick's Day", "🍀"],
+        ["Valentines Day", "🩷"],
         ["Independence Day", "🎆"],
         ["Halloween", "🎃"],
         ["Christmas", "🎄"]
